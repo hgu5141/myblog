@@ -1,11 +1,10 @@
 package com.hanghae.myblog;
 
-import com.hanghae.myblog.domain.Blog;
-import com.hanghae.myblog.domain.BlogRepository;
+import com.hanghae.myblog.domain.Myblog;
+import com.hanghae.myblog.domain.MyblogRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.Lifecycle;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
@@ -19,21 +18,21 @@ public class MyblogApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BlogRepository repository) {
+    public CommandLineRunner demo(MyblogRepository repository) {
         return (args) -> {
 
-            repository.save(new Blog("황건욱", "스피링", "너무어렵다"));
+            repository.save(new Myblog("황건욱", "스피링", "너무어렵다"));
 
-            List<Blog> blogList = repository.findAll();
-            for(int i = 0; i < blogList.size(); i++){
-                Blog blog = blogList.get(i);
-                System.out.println(blog.getId());
-                System.out.println(blog.getUsername());
-                System.out.println(blog.getTitle());
-                System.out.println(blog.getContent());
+            List<Myblog> myblogList = repository.findAll();
+            for(int i = 0; i < myblogList.size(); i++){
+                Myblog myblog = myblogList.get(i);
+                System.out.println(myblog.getId());
+                System.out.println(myblog.getUsername());
+                System.out.println(myblog.getTitle());
+                System.out.println(myblog.getContent());
             }
 
-            Blog blog = repository.findById(2L).orElseThrow(
+            Myblog myblog = repository.findById(2L).orElseThrow(
                     () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
             );
 

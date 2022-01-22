@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service    //서비스임을 명시
-public class BlogService {
+public class MyblogService {
 
     //final: 서비에게 꼭 필요한 것임을 명시
     private final MyblogRepository myblogRepository;
 
 
-    public BlogService(MyblogRepository myblogRepository) {
+    public MyblogService(MyblogRepository myblogRepository) {
         this.myblogRepository = myblogRepository;
     }
 
