@@ -38,7 +38,6 @@ public class Myblog {
 
 
     public Myblog(String username, String title, String content){
-//        this.id = id;
         this.username = username;
         this.title = title;
         this.content = content;

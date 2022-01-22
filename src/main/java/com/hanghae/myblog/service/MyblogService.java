@@ -3,8 +3,7 @@ package com.hanghae.myblog.service;
 import com.hanghae.myblog.domain.Myblog;
 import com.hanghae.myblog.domain.MyblogRepository;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service    //서비스임을 명시
 public class MyblogService {
@@ -18,12 +17,12 @@ public class MyblogService {
     }
 
     @Transactional
-    public Long update(Long id, Myblog myblog){
+    public Long update(Long id, Myblog myblog) {
         Myblog myblog1 = myblogRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.2")
         );
 
-        myblog.update(myblog);
+        myblog1.update(myblog);
         return myblog1.getId();
     }
 }
