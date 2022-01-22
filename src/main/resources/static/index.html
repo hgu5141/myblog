@@ -6,14 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timeline Service</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!--부트스트랩-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
     <style>
@@ -208,26 +219,27 @@
             height: 18px;
         }
 
-        .username{
+        .username {
             margin-bottom: 3px;
             border-right: 20px;
-            border:0;
+            border: 0;
             outline: 0;
-            width:100px;
+            width: 100px;
             margin-right: 10px;
             border-radius: 3px;
         }
 
 
-        .titlebox{
+        .titlebox {
             margin-bottom: 3px;
             border-radius: 3px;
-            border:0;
+            border: 0;
             outline: 0;
             outline: 0;
             width: 590px;
 
         }
+
         #cards-box {
             margin-top: 12px;
         }
@@ -293,34 +305,57 @@
 
         // 메모를 불러와서 보여줍니다.
         function getMessages() {
-            // 1. 기존 메모 내용을 지웁니다.
-            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            // $('#cards-box').empty();
+            $('#blog-list').empty();
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/blogs',
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        let blog = response[i];
+                        let id = blog.id;
+                        let title = blog.title;
+                        let username = blog.username;
+                        let contant = blog.contant;
+                        let modifiedAt = blog.modifiedAt;
+                        addHTML(id, title, username, contant, modifiedAt);
+                    }
+                }
+            })
+
+
         }
 
         // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
-        function addHTML(id, username, contents, modifiedAt) {
+        function addHTML(id, username,title, contant, modifiedAt) {
             // 1. HTML 태그를 만듭니다.
             // 2. #cards-box 에 HTML을 붙인다.
+            let temphtml = `        <tbody id="blog-list-${id}">
+        <tr>
+            <th scope="row">${id}</th>
+            <td>${username}</td>
+            <td>${title}</td>
+            <td>${contant}</td>
+        </tr>`
+            $('#blog-list').append(temphtml);
         }
+
 
         // 메모를 생성합니다.
         function writePost() {
-            // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
-
-            // 3. genRandomName 함수를 통해 익명의 username을 만듭니다.
-            // 4. 전달할 data JSON으로 만듭니다.
-            // 5. POST /api/memos 에 data를 전달합니다.
             // contents = $('#contents').val();
             let title = $('#title').val();
             let username = $('#username').val();
             let contents = $('#contents').val();
-
-            if(isValidContents(contents) == false){
-                return;}
-
-
             console.log(title, username, contents)
-            let data = {'title':title, 'username':username,'contents':contents}
+
+            if (isValidContents(contents) == false) {
+                return;
+            }
+
+            //
+            let data = {'title': title, 'username': username, 'content': contents}
             $.ajax({
                 type: "POST",
                 url: "/api/blogs",
@@ -330,10 +365,7 @@
                     alert('성공적으로 작성되었습니다.');
                     window.location.reload();
                 }
-            })
-
-
-
+            });
         }
 
         // 메모를 수정합니다.
@@ -366,7 +398,8 @@
         </p>
     </div>
     <div class="area-write">
-         <input type="text" class="username" id="username" placeholder="아이디"><input class="titlebox" id="title" type="text" placeholder="제목 입력">
+        <input type="text" class="username" id="username" placeholder="아이디"><input class="titlebox" id="title"
+                                                                                   type="text" placeholder="제목 입력">
         <textarea class="field" placeholder="공유하고 싶은 소식을 입력해주세요" name="contents" id="contents" cols="30"
                   rows="10"></textarea>
         <!--            <button class="btn btn-danger" onclick="writePost()">작성하기</button>-->
@@ -409,7 +442,7 @@
             <th scope="col">time</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="blog-list">
         <tr>
             <th scope="row">1</th>
             <td>Mark</td>

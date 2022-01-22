@@ -23,7 +23,6 @@ public class MyblogController {
     @PostMapping("/api/blogs")
     public Myblog createMyblog(@RequestBody MyblogRequestDto requestDto) {
         Myblog myblog = new Myblog(requestDto);
-
         //jap를 이용하여 db에 저장하고, 그 결과를 반환
         return myblogRepository.save(myblog);
     }
