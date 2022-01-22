@@ -45,7 +45,4 @@ public class MyblogController {
         myblogRepository.deleteById(id);
         return id;
     }
-
-
-
 }

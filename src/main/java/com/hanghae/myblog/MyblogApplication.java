@@ -46,7 +46,7 @@ public class MyblogApplication {
                 System.out.println(myblog.getContent());
             }
 
-//            myblogRepository.deleteAll();
+            myblogRepository.deleteAll();
 
             Myblog myblog = myblogRepository.findById(1L).orElseThrow(
                     () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")

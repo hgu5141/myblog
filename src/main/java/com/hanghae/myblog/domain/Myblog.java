@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Myblog {
+public class Myblog extends Timestamped{
     @GeneratedValue(strategy = GenerationType.AUTO) // 자동 증가 명령어
     @Id // id값 기본키로 사용
     private Long id;
