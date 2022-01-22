@@ -1,9 +1,10 @@
 package com.hanghae.myblog.domain;
-
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
+
+@Getter
 @Entity
 @NoArgsConstructor
 public class Myblog {
@@ -20,22 +21,12 @@ public class Myblog {
     @Column(nullable = false)
     private String content;
 
-    public Long getId(){
-        return this.id;
-    }
 
-    public String getUsername(){
-        return username;
+    public Myblog(MyblogRequestDto requestDto){
+        this.title = requestDto.getTitle();
+        this.username = requestDto.getUsername();
+        this.content = requestDto.getContent();
     }
-
-    public String getTitle(){
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
 
     public Myblog(String username, String title, String content){
         this.username = username;
@@ -43,10 +34,10 @@ public class Myblog {
         this.content = content;
     }
 
-    public void update(Myblog myblog){
-        this.title = myblog.title;
-        this.username = myblog.username;
-        this.content = myblog.content;
+    public void update(MyblogRequestDto requestDto){
+        this.title = requestDto.getTitle();
+        this.username = requestDto.getUsername();
+        this.content = requestDto.getContent();
     }
 
 

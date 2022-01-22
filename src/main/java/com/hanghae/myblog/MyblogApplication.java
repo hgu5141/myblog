@@ -2,6 +2,7 @@ package com.hanghae.myblog;
 
 import com.hanghae.myblog.domain.Myblog;
 import com.hanghae.myblog.domain.MyblogRepository;
+import com.hanghae.myblog.domain.MyblogRequestDto;
 import com.hanghae.myblog.service.MyblogService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,8 +35,8 @@ public class MyblogApplication {
                 System.out.println(myblog.getContent());
             }
 
-            Myblog new_blog = new Myblog("황건욱", "커리큘럼", "스프링");
-            myblogService.update(1L, new_blog);
+            MyblogRequestDto requestDto = new MyblogRequestDto("황건욱", "커리큘럼", "스프링");
+            myblogService.update(1L, requestDto);
             myblogList = myblogRepository.findAll();
             for(int i = 0; i<myblogList.size(); i++){
                 Myblog myblog = myblogList.get(i);
@@ -45,7 +46,7 @@ public class MyblogApplication {
                 System.out.println(myblog.getContent());
             }
 
-            myblogRepository.deleteAll();
+//            myblogRepository.deleteAll();
 
             Myblog myblog = myblogRepository.findById(1L).orElseThrow(
                     () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")

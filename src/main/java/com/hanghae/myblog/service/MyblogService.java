@@ -2,9 +2,12 @@ package com.hanghae.myblog.service;
 
 import com.hanghae.myblog.domain.Myblog;
 import com.hanghae.myblog.domain.MyblogRepository;
+import com.hanghae.myblog.domain.MyblogRequestDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@RequiredArgsConstructor
 @Service    //서비스임을 명시
 public class MyblogService {
 
@@ -12,17 +15,14 @@ public class MyblogService {
     private final MyblogRepository myblogRepository;
 
 
-    public MyblogService(MyblogRepository myblogRepository) {
-        this.myblogRepository = myblogRepository;
-    }
-
     @Transactional
-    public Long update(Long id, Myblog myblog) {
+    public Long update(Long id, MyblogRequestDto requestDto){
         Myblog myblog1 = myblogRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.2")
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
 
-        myblog1.update(myblog);
+        myblog1.update(requestDto);
         return myblog1.getId();
     }
+
 }
