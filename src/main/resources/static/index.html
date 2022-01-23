@@ -240,6 +240,8 @@
 
         }
 
+
+
         #cards-box {
             margin-top: 12px;
         }
@@ -306,7 +308,7 @@
         // 메모를 불러와서 보여줍니다.
         function getMessages() {
             // $('#cards-box').empty();
-            $('#blog-list').empty();
+            // $('#blog-list').empty();
 
             $.ajax({
                 type: 'GET',
@@ -318,7 +320,7 @@
                         let title = blog.title;
                         let username = blog.username;
                         let contant = blog.contant;
-                        let modifiedAt = blog.modifiedAt;
+                        let modifiedAt = blog.modifiedAt.split("20")[1].split("T")[0];
                         addHTML(id, title, username, contant, modifiedAt);
                     }
                 }
@@ -331,12 +333,12 @@
         function addHTML(id, username,title, contant, modifiedAt) {
             // 1. HTML 태그를 만듭니다.
             // 2. #cards-box 에 HTML을 붙인다.
-            let temphtml = `        <tbody id="blog-list-${id}">
-        <tr>
+            let temphtml = `
+        <tr >
             <th scope="row">${id}</th>
             <td>${username}</td>
             <td>${title}</td>
-            <td>${contant}</td>
+            <td><${modifiedAt}</td>
         </tr>`
             $('#blog-list').append(temphtml);
         }
@@ -442,7 +444,7 @@
             <th scope="col">time</th>
         </tr>
         </thead>
-        <tbody id="blog-list">
+        <tbody id="blog-list" class="blog-list">
         <tr>
             <th scope="row">1</th>
             <td>Mark</td>
@@ -455,11 +457,11 @@
             <td>Thornton</td>
             <td>@fat</td>
         </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+<!--        <tr>-->
+<!--            <th scope="row">3</th>-->
+<!--            <td colspan="2">Larry the Bird</td>-->
+<!--            <td>@twitter</td>-->
+<!--        </tr>-->
         </tbody>
     </table>
 
