@@ -23,24 +23,24 @@ public class Myblog extends Timestamped {
     private String title;
 
     @Column(nullable = false)
-    private String content;
+    private String contents;
 
 
     public Myblog(MyblogRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.username = requestDto.getUsername();
-        this.content = requestDto.getContent();
+        this.contents = requestDto.getContents();
     }
 
-    public Myblog(String username, String title, String content) {
+    public Myblog(String username, String title, String contents) {
         this.username = username;
         this.title = title;
-        this.content = content;
+        this.contents = contents;
     }
 
     public void update(MyblogRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.username = requestDto.getUsername();
-        this.content = requestDto.getContent();
+        this.contents = requestDto.getContents();
     }
 }

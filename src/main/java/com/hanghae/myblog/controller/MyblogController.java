@@ -32,6 +32,7 @@ public class MyblogController {
     public List<Myblog> getBlogs(){
         return myblogRepository.findAllByOrderByModifiedAtDesc();
     }
+    
 
     @PutMapping("/api/blogs/{id}")
     public Long updateMyblog(@PathVariable Long id, @RequestBody MyblogRequestDto requestDto){
