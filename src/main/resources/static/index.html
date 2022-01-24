@@ -264,18 +264,18 @@
             return true;
         }
 
-        // 익명의 username을 만듭니다.
-        function genRandomName(length) {
-            let result = '';
-            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let charactersLength = characters.length;
-            for (let i = 0; i < length; i++) {
-                let number = Math.random() * charactersLength;
-                let index = Math.floor(number);
-                result += characters.charAt(index);
-            }
-            return result;
-        }
+        // // 익명의 username을 만듭니다.
+        // function genRandomName(length) {
+        //     let result = '';
+        //     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        //     let charactersLength = characters.length;
+        //     for (let i = 0; i < length; i++) {
+        //         let number = Math.random() * charactersLength;
+        //         let index = Math.floor(number);
+        //         result += characters.charAt(index);
+        //     }
+        //     return result;
+        // }
 
         // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
         // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
@@ -337,7 +337,7 @@
             // 1. HTML 태그를 만듭니다.
             // 2. #cards-box 에 HTML을 붙인다.
             let temphtml = `
-        <tr   data-toggle="modal" data-target=".bd-example-modal-lg">
+        <tr   data-toggle="modal" data-target=".bd-example-modal-lg-${id}">
             <th scope="row">${id}</th>
             <td>${username}</td>
             <td>${title}</td>
@@ -345,7 +345,12 @@
         </tr>`
 
 
-            let temphtml2 = ` <div id="cards-box" class="area-read">
+            let temphtml2 = `    <div class="modal fade bd-example-modal-lg-${id}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal">
+                <div id="cards-box" class="area-read">
+ <div id="cards-box" class="area-read">
                     <div class="card">
                         <!-- date/username 영역 -->
                         <div class="metadata">
@@ -354,6 +359,9 @@
                             </div>
                             <div id="${id}-username" class="username">
                                 ${username}
+                            </div>
+                            <div id="${id}-title" class="username">
+                                ${title}
                             </div>
                         </div>
                         <!-- contents 조회/수정 영역-->
@@ -373,9 +381,13 @@
                         </div>
                     </div>
                 </div>
+                                </div>
+            </div>
+        </div>
+    </div>
             `
             $('#blog-list').append(temphtml);
-            $('#cards-box').append(temphtml2);
+            $('#modal-box').append(temphtml2);
         }
 
 
@@ -411,7 +423,9 @@
             // 3. 전달할 data JSON으로 만듭니다.
             // 4. PUT /api/memos/{id} 에 data를 전달합니다.
             let username = $(`#${id}-username`).text().trim();
+            let title = $(`#${id}-title`).text().trim();
             let contents = $(`#${id}-textarea`).val().trim();
+
             console.log(title, username, contents)
 
 
@@ -419,7 +433,7 @@
                 return;
             }
 
-            let data = {'username': username, 'contents': contents};
+            let data = {'title':title, 'username': username, 'contents': contents};
             $.ajax({
                 type: "PUT",
                 url: `/api/blogs/${id}`,
@@ -480,35 +494,13 @@
         </tr>
         </thead>
         <tbody id="blog-list" class="blog-list">
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <!--        <tr>-->
-        <!--            <th scope="row">3</th>-->
-        <!--            <td colspan="2">Larry the Bird</td>-->
-        <!--            <td>@twitter</td>-->
-        <!--        </tr>-->
+
         </tbody>
     </table>
+    <div id="modal-box">
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" id="modal">
-                <div id="cards-box" class="area-read">
-                </div>
-            </div>
-        </div>
     </div>
+
 </div>
 
 </body>
