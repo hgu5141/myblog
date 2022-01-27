@@ -307,7 +307,7 @@
                         let title = blog.title;
                         let username = blog.username;
                         let contents = blog.contents;
-                        let modifiedAt = blog.modifiedAt;
+                        let modifiedAt = blog.modifiedAt.substr(0, 16);
                         addHTML(id, title, username, contents, modifiedAt);
                     }
                 }
@@ -325,7 +325,7 @@
             <th scope="row">${id}</th>
             <td>${username}</td>
             <td>${title}</td>
-            <td><${modifiedAt}</td>
+            <td>${modifiedAt}</td>
         </tr>`
 
 
