@@ -263,22 +263,6 @@
             }
             return true;
         }
-
-        // // 익명의 username을 만듭니다.
-        // function genRandomName(length) {
-        //     let result = '';
-        //     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        //     let charactersLength = characters.length;
-        //     for (let i = 0; i < length; i++) {
-        //         let number = Math.random() * charactersLength;
-        //         let index = Math.floor(number);
-        //         result += characters.charAt(index);
-        //     }
-        //     return result;
-        // }
-
-        // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
-        // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
         function editPost(id) {
             showEdits(id);
             let contents = $(`#${id}-contents`).text().trim();
@@ -323,7 +307,7 @@
                         let title = blog.title;
                         let username = blog.username;
                         let contents = blog.contents;
-                        let modifiedAt = blog.modifiedAt.split("20")[1].split("T")[0];
+                        let modifiedAt = blog.modifiedAt;
                         addHTML(id, title, username, contents, modifiedAt);
                     }
                 }
